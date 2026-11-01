@@ -1,70 +1,61 @@
 # AuditChain Ledger Monorepo
 
-**Sovereign, progressive cryptographic audit ledger platform**  
+**Progressive pure-Python cryptographic audit platform**  
 Versions **v1.0.0 → v5.0.0** in a single unified repository.
 
 ## Release Manifest
 
-| Version | Codename | Focus |
-|---------|----------|-------|
-| **v1.0.0** | Foundation Engine | Immutable SHA-256 hash-chained append-only ledger + Flask API |
-| **v2.0.0** | Merkle Batching Engine | Binary Merkle trees, inclusion proofs, JSON-L persistence |
-| **v3.0.0** | Enterprise Multi-Tenant | Zero-Knowledge Range Proofs, tenant isolation, HMAC signatures |
-| **v4.0.0** | Autonomous Distributed | Raft consensus, consistent-hash sharding, auto-healing |
-| **v5.0.0** | Sovereign Post-Quantum | Lattice-based Dilithium-style PQC, Shamir VSS, AI compliance |
+| Version | Codename | Focus | Maturity |
+|---------|----------|-------|----------|
+| **v1.0.0** | Foundation Engine | SHA-256 hash chain + Flask API | Production-usable core |
+| **v2.0.0** | Merkle Batching | Binary Merkle trees, inclusion proofs, JSON-L | Production-usable core |
+| **v3.0.0** | Enterprise Multi-Tenant | Educational ZK range proofs, tenant isolation | Reference / educational |
+| **v4.0.0** | Autonomous Distributed | Raft-style quorum, sharding, auto-healing | Reference / educational |
+| **v5.0.0** | Sovereign Post-Quantum | Educational lattice signatures, Shamir VSS, AI compliance | Reference / educational |
 
-Each version is a **self-contained Python package** with its own `backend/`, `tests/`, and `requirements.txt`.
-
-## Quick Start (any version)
+## Quick Start
 
 ```bash
 cd vX.Y.Z
-pip install -r requirements.txt
-# Run tests
-python -m unittest discover -s tests -v
-# Or (v1/v2) start the API
-python -m backend.app
+pip install -e ".[test]"          # or pip install -r requirements.txt
+PYTHONPATH=. python -m pytest tests/ -q
 ```
 
-## Repository Structure
+## Repository Layout
 
 ```
 auditchain-ledger-monorepo/
-├── v1.0.0/
-│   ├── backend/          # ledger.py, app.py, config.py
-│   ├── tests/
-│   ├── requirements.txt
-│   └── README.md
-├── v2.0.0/
-│   ├── backend/          # merkle.py, storage.py, app.py
-│   ├── tests/
-│   └── ...
-├── v3.0.0/
-│   ├── backend/          # zkp.py, partition.py, crypto.py
-│   └── ...
-├── v4.0.0/
-│   ├── backend/          # consensus.py, sharding.py, healing.py, pki.py
-│   └── ...
-├── v5.0.0/
-│   ├── backend/          # pqc.py, secret_sharing.py, ai_compliance.py, interop.py
-│   └── ...
-├── .github/workflows/
-│   └── ci.yml            # Multi-version test matrix
-└── README.md             # This file
+├── v1.0.0/ … v5.0.0/     # Independent, self-contained packages
+├── benchmarks/            # Micro-benchmarks
+├── docs/                  # Test-suite summary, revised acquisition proposal
+├── ARCHITECTURE.md        # Design progression
+├── SECURITY.md            # Threat model & explicit limitations
+├── .github/workflows/     # CI matrix
+└── README.md
 ```
 
-## Design Principles
+## Test Suite
 
-- **Pure Python** core (stdlib + minimal Flask for APIs)
-- **Zero external cryptographic dependencies**
-- Progressive capability growth while remaining independently runnable
-- Deterministic tests suitable for CI
+**62 automated unit tests** covering integrity, proofs, isolation, consensus, threshold sharing and educational PQC.  
+See `docs/TEST_SUITE_AND_PROOFS.md`.
+
+## Security Notice
+
+All advanced cryptographic modules (especially v3 ZK and v5 lattice) are **educational reference implementations**.  
+They are **not** production-ready NIST-validated cryptography.  
+Read `SECURITY.md` before any deployment consideration.
+
+## Documentation
+
+- [Architecture](ARCHITECTURE.md)
+- [Security & Threat Model](SECURITY.md)
+- [Test Suite & Proofs](docs/TEST_SUITE_AND_PROOFS.md)
+- [Revised Acquisition Proposal](docs/Acquisition_Proposal_Revised.md)
 
 ## License & Ownership
 
-All intellectual property belongs to **Mourad Soltani**.  
-This monorepo is prepared for acquisition / integration purposes.
+All intellectual property belongs to **Mourad Soltani**.
 
 ---
 
-*AuditChain Ledger — Built for zero-trust, post-quantum, and regulatory-grade audit trails.*
+*AuditChain Ledger — Built for zero-trust, educational post-quantum exploration, and regulatory-grade audit trail research.*

@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "auditchain-ledger-v4.0.0"
+version = "v4.0.0"
+description = "AuditChain Ledger v4.0.0"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+api = ["flask>=2.3.0"]
+test = ["pytest>=7.0.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["backend*"]
